@@ -101,6 +101,7 @@ $.widget("ui.dialog", {
 							event.keyCode === $.ui.keyCode.ESCAPE ) {
 						self.close( event );
 						event.preventDefault();
+						event.stopPropagation();
 					}
 				})
 				.attr({
