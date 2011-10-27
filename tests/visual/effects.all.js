@@ -23,7 +23,7 @@ $(function() {
 		});
 
 	};
-	
+
 	$("#hide").click(function() {
 		var el = $(this);
 		el.addClass("current").hide(duration, function() {

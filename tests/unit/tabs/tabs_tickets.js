@@ -54,7 +54,7 @@ test('#3627 - Ajax tab with url containing a fragment identifier fails to load',
 test('#4033 - IE expands hash to full url and misinterprets tab as ajax', function() {
 	// http://dev.jqueryui.com/ticket/4033
 	expect(1);
-	
+
 	el = $('<div><ul><li><a href="#tab">Tab</a></li></ul><div id="tab"></div></div>');
 	el.appendTo('#main');
 	el.tabs({

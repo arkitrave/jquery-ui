@@ -52,7 +52,7 @@ test("enable", function() {
 	var expected = $('<div></div>').dialog(),
 		actual = expected.dialog('enable');
 	equals(actual, expected, 'enable is chainable');
-	
+
 	el = $('<div></div>').dialog({ disabled: true });
 	el.dialog('enable');
 	equals(el.dialog('option', 'disabled'), false, 'enable method sets disabled option to false');
@@ -63,7 +63,7 @@ test("disable", function() {
 	var expected = $('<div></div>').dialog(),
 		actual = expected.dialog('disable');
 	equals(actual, expected, 'disable is chainable');
-	
+
 	el = $('<div></div>').dialog({ disabled: false });
 	el.dialog('disable');
 	equals(el.dialog('option', 'disabled'), true, 'disable method sets disabled option to true');
@@ -74,7 +74,7 @@ test("close", function() {
 	var expected = $('<div></div>').dialog(),
 		actual = expected.dialog('close');
 	equals(actual, expected, 'close is chainable');
-	
+
 	el = $('<div></div>').dialog();
 	ok(dlg().is(':visible') && !dlg().is(':hidden'), 'dialog visible before close method called');
 	el.dialog('close');

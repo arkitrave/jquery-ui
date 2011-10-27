@@ -19,26 +19,26 @@ $.effects.effect.bounce = function(o) {
 	return this.queue(function() {
 
 		// Create element
-		var el = $( this ), 
+		var el = $( this ),
 			props = [ 'position', 'top', 'bottom', 'left', 'right' ],
 			// defaults:
 			mode = $.effects.setMode( el, o.mode || 'effect' ),
-			direction = o.direction || 'up', 
+			direction = o.direction || 'up',
 			distance = o.distance || 20,
-			times = o.times || 5, 
+			times = o.times || 5,
 			speed = (o.duration || 250),
 			// utility:
 			ref = ( direction == 'up' || direction == 'down' ) ? 'top' : 'left',
 			motion = ( direction == 'up' || direction == 'left' ), // true is positive
 			i, animation, animation1, animation2;
-		
-		// Avoid touching opacity to prevent clearType and PNG issues in IE	
+
+		// Avoid touching opacity to prevent clearType and PNG issues in IE
 		if ( rshowhide.test( mode ) ) {
 			props.push( 'opacity' );
-		} 
+		}
 
-		$.effects.save( el, props ); 
-		el.show(); 
+		$.effects.save( el, props );
+		el.show();
 		$.effects.createWrapper( el ); // Create Wrapper
 
 		if ( !distance ) {
@@ -49,9 +49,9 @@ $.effects.effect.bounce = function(o) {
 		if ( mode != 'hide' ) times--;
 
 		// Animate
-		if ( mode == 'show' ) { 
-			animation = { 
-				opacity: 1 
+		if ( mode == 'show' ) {
+			animation = {
+				opacity: 1
 			};
 			animation[ ref ] = ( motion ? '+=' : '-=' ) + distance;
 			el.animate( animation, speed / 2, o.easing);

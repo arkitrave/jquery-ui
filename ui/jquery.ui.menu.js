@@ -1,6 +1,6 @@
 /*
  * jQuery UI Menu @VERSION
- * 
+ *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
@@ -12,7 +12,7 @@
  *	jquery.ui.widget.js
  */
 (function($) {
-	
+
 var idIncrement = 0;
 
 $.widget("ui.menu", {
@@ -69,7 +69,7 @@ $.widget("ui.menu", {
 				}
 			});
 		this.refresh();
-		
+
 		this.element.attr( "tabIndex", 0 ).bind( "keydown.menu", function( event ) {
 			if ( self.options.disabled ) {
 				return;
@@ -158,14 +158,14 @@ $.widget("ui.menu", {
 			}
 		});
 	},
-	
+
 	_destroy: function() {
 		this.element
 			.removeClass( "ui-menu ui-widget ui-widget-content ui-corner-all" )
 			.removeAttr( "tabIndex" )
 			.removeAttr( "role" )
 			.removeAttr( "aria-activedescendant" );
-		
+
 		this.element.children( ".ui-menu-item" )
 			.removeClass( "ui-menu-item" )
 			.removeAttr( "role" )
@@ -174,24 +174,24 @@ $.widget("ui.menu", {
 			.removeAttr( "tabIndex" )
 			.unbind( ".menu" );
 	},
-	
+
 	refresh: function() {
 		// initialize nested menus
 		// TODO add role=listbox to these, too? or just the top level menu?
 		var submenus = this.element.find("ul:not(.ui-menu)")
 			.addClass( "ui-menu ui-widget ui-widget-content ui-corner-all" )
 			.hide()
-		
+
 		submenus
 			.prev("a")
 			.prepend('<span class="ui-icon ui-icon-carat-1-e"></span>');
-		
-		
+
+
 		// don't refresh list items that are already adapted
 		var items = submenus.add(this.element).children( "li:not(.ui-menu-item):has(a)" )
 			.addClass( "ui-menu-item" )
 			.attr( "role", "menuitem" );
-		
+
 		items.children( "a" )
 			.addClass( "ui-corner-all" )
 			.attr( "tabIndex", -1 );
@@ -199,9 +199,9 @@ $.widget("ui.menu", {
 
 	focus: function( event, item ) {
 		var self = this;
-		
+
 		this.blur();
-		
+
 		if ( this._hasScroll() ) {
 			var borderTop = parseFloat( $.curCSS( this.element[0], "borderTopWidth", true) ) || 0,
 				paddingtop = parseFloat( $.curCSS( this.element[0], "paddingTop", true) ) || 0,
@@ -215,7 +215,7 @@ $.widget("ui.menu", {
 				this.element.attr( "scrollTop", scroll + offset - elementHeight + itemHeight );
 			}
 		}
-		
+
 		this.active = item.first()
 			.children( "a" )
 				.addClass( "ui-state-focus" )
@@ -226,7 +226,7 @@ $.widget("ui.menu", {
 		// need to remove the attribute before adding it for the screenreader to pick up the change
 		// see http://groups.google.com/group/jquery-a11y/msg/929e0c1e8c5efc8f
 		this.element.removeAttr("aria-activedescendant").attr("aria-activedescendant", self.itemId)
-		
+
 		self.timer = setTimeout(function() {
 			self._close();
 		}, self.delay)
@@ -235,7 +235,7 @@ $.widget("ui.menu", {
 			self._startOpening(nested);
 		}
 		this.activeMenu = item.parent();
-		
+
 		this._trigger( "focus", event, { item: item } );
 	},
 
@@ -243,9 +243,9 @@ $.widget("ui.menu", {
 		if (!this.active) {
 			return;
 		}
-		
+
 		clearTimeout(this.timer);
-		
+
 		this.active.children( "a" ).removeClass( "ui-state-focus" );
 		// remove only generated id
 		$( "#" + this.menuId + "-activedescendant" ).removeAttr( "id" );
@@ -262,10 +262,10 @@ $.widget("ui.menu", {
 			self._open(submenu);
 		}, self.delay);
 	},
-	
+
 	_open: function(submenu) {
 		this.element.find(".ui-menu").not(submenu.parents()).hide();
-			
+
 		var position = $.extend({}, {
 			of: this.active
 		}, $.type(this.options.position) == "function"
@@ -274,10 +274,10 @@ $.widget("ui.menu", {
 		);
 
 		submenu.show().position(position);
-		
+
 		this.active.find(">a:first").addClass("ui-state-active");
 	},
-	
+
 	closeAll: function() {
 		this.element
 		 .find("ul").hide().end()
@@ -285,7 +285,7 @@ $.widget("ui.menu", {
 		this.blur();
 		this.activeMenu = this.element;
 	},
-	
+
 	_close: function() {
 		this.active.parent()
 		 .find("ul").hide().end()
@@ -339,7 +339,7 @@ $.widget("ui.menu", {
 			this.focus( event, this.activeMenu.children(edge)[filter]() );
 		}
 	},
-	
+
 	nextPage: function( event ) {
 		if ( this._hasScroll() ) {
 			if ( !this.active || this.last() ) {

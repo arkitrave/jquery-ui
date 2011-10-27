@@ -49,23 +49,23 @@ $.widget("ui.tooltip", {
 				self.close( event );
 			});
 	},
-	
+
 	enable: function() {
 		this.options.disabled = false;
 	},
-	
+
 	disable: function() {
 		this.options.disabled = true;
 	},
-	
+
 	_destroy: function() {
 		this.tooltip.remove();
 	},
-	
+
 	widget: function() {
 		return this.element.pushStack(this.tooltip.get());
 	},
-	
+
 	open: function(event) {
 		var target = $(event && event.target || this.element).closest(this.options.items);
 		if ( !target.length ) {
@@ -89,16 +89,16 @@ $.widget("ui.tooltip", {
 			self._open(event, target, content);
 		}
 	},
-	
+
 	_open: function(event, target, content) {
 		if (!content)
 			return;
-		
+
 		target.attr("title", "");
-		
+
 		if (this.options.disabled)
 			return;
-			
+
 		this.tooltipContent.html(content);
 		this.tooltip.css({
 			top: 0,
@@ -106,7 +106,7 @@ $.widget("ui.tooltip", {
 		}).show().position( $.extend({
 			of: target
 		}, this.options.position )).hide();
-		
+
 		this.tooltip.attr("aria-hidden", "false");
 		target.attr("aria-describedby", this.tooltip.attr("id"));
 
@@ -114,23 +114,23 @@ $.widget("ui.tooltip", {
 
 		this._trigger( "open", event );
 	},
-	
+
 	close: function(event) {
 		if (!this.current)
 			return;
-		
+
 		var current = this.current;
 		this.current = null;
 		current.attr("title", this.currentTitle);
-		
+
 		if (this.options.disabled)
 			return;
-		
+
 		current.removeAttr("aria-describedby");
 		this.tooltip.attr("aria-hidden", "true");
-		
+
 		this.tooltip.stop(false, true).fadeOut();
-		
+
 		this._trigger( "close", event );
 	}
 });

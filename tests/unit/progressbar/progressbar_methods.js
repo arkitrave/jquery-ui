@@ -26,7 +26,7 @@ test("destroy", function() {
 
 test('value', function() {
 	expect(3);
-	
+
 	var el = $('<div></div>').progressbar({ value: 20 });
 	equals(el.progressbar('value'), 20, 'correct value as getter');
 	equals(el.progressbar('value', 30), el, 'chainable as setter');

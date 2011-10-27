@@ -34,15 +34,15 @@
 			helper: "clone",
 			appendTo: "body"
 		});
-		
+
 		// PROBLEM: nested accordions must be initialized before outer accordion
 		$( "#accordion > div" ).accordion();
 		$( "#accordion" ).accordion();
-		
-		
+
+
 		// PROBLEM: nested widgets must be initialized before tabs
 		$( "#tabs" ).tabs();
-		
+
 		$( "#main-draggable" ).draggable({
 			handle: "#main-draggable-handle"
 		});

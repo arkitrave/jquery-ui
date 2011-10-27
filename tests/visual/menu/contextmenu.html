@@ -19,7 +19,7 @@
 			right: 10,
 			top: 10
 		}).appendTo(document.body).themeswitcher();
-		
+
 		// TODO close other menus when opening a new one
 		$("button").each(function() {
 			$(this).next().menu({
@@ -37,7 +37,7 @@
 					$("#log").append("<div>Selected " + ui.item.text() + "</div>");
 				}
 			}).hide();
-			
+
 			// equal height
 			//menu.find("ul").height(menu.height());
 		}).click(function(event) {
@@ -68,7 +68,7 @@
 				$(this).prev().focus()
 				break;
 			default:
-				
+
 			}
 		});
 	});
@@ -80,7 +80,7 @@
 	</style>
 </head>
 <body>
-	
+
 <button id="1">Show context menu 1</button>
 <ul id="menu1">
 	<li><a href="#">Amsterdam</a></li>

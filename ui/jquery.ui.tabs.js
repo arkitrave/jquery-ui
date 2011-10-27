@@ -520,7 +520,7 @@ $.widget( "ui.tabs", {
 			o.disabled = this.lis.map( function( i ) {
 				return $(this).is( ".ui-state-disabled" ) ? i : null;
 			}).get();
-			
+
 			if ( o.disabled.length === this.anchors.length ) {
 				o.disabled = true;
 			}

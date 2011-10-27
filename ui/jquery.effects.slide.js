@@ -24,40 +24,40 @@ $.effects.effect.slide = function( o ) {
 			ref = (direction == 'up' || direction == 'down') ? 'top' : 'left',
 			motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg',
 			distance,
-			animation = {}; 
+			animation = {};
 
 		// Adjust
-		$.effects.save( el, props ); 
+		$.effects.save( el, props );
 		el.show();
 		$.effects.createWrapper( el ).css({
 			overflow: 'hidden'
-		}); 
-		
-		distance = o.distance || el[ ref == 'top' ? "outerHeight" : "outerWidth" ]({ 
-			margin: true 
+		});
+
+		distance = o.distance || el[ ref == 'top' ? "outerHeight" : "outerWidth" ]({
+			margin: true
 		});
 		if (mode == 'show') {
 			el.css( ref, motion == 'pos' ? (isNaN(distance) ? "-" + distance : -distance) : distance );
 		}
 
 		// Animation
-		animation[ ref ] = ( mode == 'show' ? 
-			(motion == 'pos' ? '+=' : '-=') : 
-			(motion == 'pos' ? '-=' : '+=')) 
+		animation[ ref ] = ( mode == 'show' ?
+			(motion == 'pos' ? '+=' : '-=') :
+			(motion == 'pos' ? '-=' : '+='))
 			+ distance;
 
 		// Animate
-		el.animate( animation, { 
-			queue: false, 
-			duration: o.duration, 
-			easing: o.easing, 
+		el.animate( animation, {
+			queue: false,
+			duration: o.duration,
+			easing: o.easing,
 			complete: function() {
 				if ( mode == 'hide' ) {
-					el.hide(); 
+					el.hide();
 				}
 				$.effects.restore( el, props );
 				$.effects.removeWrapper( el );
-				$.isFunction(o.complete) && o.complete.apply( this, arguments ); 
+				$.isFunction(o.complete) && o.complete.apply( this, arguments );
 				el.dequeue();
 			}
 		});

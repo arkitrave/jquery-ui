@@ -25,9 +25,9 @@ $.effects.effect.blind = function( o ) {
 			animation = {},
 			wrapper, distance;
 
-		$.effects.save( el, props ); 
-		el.show(); 
-		wrapper = $.effects.createWrapper( el ).css({ 
+		$.effects.save( el, props );
+		el.show();
+		wrapper = $.effects.createWrapper( el ).css({
 			overflow: 'hidden'
 		});
 
@@ -38,8 +38,8 @@ $.effects.effect.blind = function( o ) {
 
 		// Animate
 		wrapper.animate( animation, o.duration, o.easing, function() {
-			( mode == 'hide' && el.hide() ); 
-			$.effects.restore( el, props ); 
+			( mode == 'hide' && el.hide() );
+			$.effects.restore( el, props );
 			$.effects.removeWrapper( el );
 			$.isFunction( o.complete ) && o.complete.apply( el[ 0 ], arguments );
 			el.dequeue();

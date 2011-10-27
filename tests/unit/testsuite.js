@@ -69,13 +69,13 @@ window.commonWidgetTests = function( widget, settings ) {
 
 /*
  * Experimental assertion for comparing DOM objects.
- * 
+ *
  * Serializes an element and some attributes and it's children if any, otherwise the text.
  * Then compares the result using deepEqual.
  */
 window.domEqual = function( selector, modifier, message ) {
 	var attributes = ["class", "role", "id", "tabIndex", "aria-activedescendant"];
-	
+
 	function extract(value) {
 		var result = {};
 		result.nodeName = value[0].nodeName;
@@ -95,7 +95,7 @@ window.domEqual = function( selector, modifier, message ) {
 	}
 	var expected = extract($(selector));
 	modifier($(selector));
-	
+
 	var actual = extract($(selector));
 	QUnit.push( QUnit.equiv(actual, expected), actual, expected, message );
 }

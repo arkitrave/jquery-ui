@@ -28,11 +28,11 @@ $.effects.effect.shake = function( o ) {
 			animation = {},
 			animation1 = {},
 			animation2 = {},
-			i; 
+			i;
 
 		// Adjust
-		$.effects.save( el, props ); 
-		el.show(); 
+		$.effects.save( el, props );
+		el.show();
 		$.effects.createWrapper( el ); // Create Wrapper
 
 		// Animation
@@ -44,17 +44,17 @@ $.effects.effect.shake = function( o ) {
 		el.animate( animation, speed, o.easing );
 
 		// Shakes
-		for ( i = 1; i < times; i++ ) { 
+		for ( i = 1; i < times; i++ ) {
 			el.animate( animation1, speed, o.easing ).animate( animation2, speed, o.easing );
 		};
 		el
 			.animate( animation1, speed, o.easing )
-			.animate( animation, speed / 2, o.easing, function() { 
+			.animate( animation, speed / 2, o.easing, function() {
 
 				// Last shake
-				$.effects.restore( el, props ); 
-				$.effects.removeWrapper( el ); 
-				$.isFunction( o.complete ) && o.complete.apply( this, arguments ); 
+				$.effects.restore( el, props );
+				$.effects.removeWrapper( el );
+				$.isFunction( o.complete ) && o.complete.apply( this, arguments );
 			})
 			.dequeue();
 	});

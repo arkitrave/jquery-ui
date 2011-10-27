@@ -265,7 +265,7 @@ test('miscellaneous', function() {
 	var curYear = new Date().getFullYear();
 	inp.val('02/04/2008').datepicker('show');
 	equals(dp.find('.ui-datepicker-year').text(), '2008', 'Year range - read-only default');
-	inp.datepicker('hide').datepicker('option', {changeYear: true}).datepicker('show');		
+	inp.datepicker('hide').datepicker('option', {changeYear: true}).datepicker('show');
 	equals(dp.find('.ui-datepicker-year').text(), genRange(2008 - 10, 21), 'Year range - changeable default');
 	inp.datepicker('hide').datepicker('option', {yearRange: 'c-6:c+2', changeYear: true}).datepicker('show');
 	equals(dp.find('.ui-datepicker-year').text(), genRange(2008 - 6, 9), 'Year range - c-6:c+2');
@@ -507,11 +507,11 @@ test('altField', function() {
 	inp.simulate('keydown', {ctrlKey: true, keyCode: $.simulate.VK_END});
 	equals(inp.val(), '', 'Alt field - dp - ctrl+end');
 	equals(alt.val(), '', 'Alt field - alt - ctrl+end');
-	
+
 	return
 	// TODO manual entry impl works (see altField demo) but this test doesn't
 	// probably something the rewrite won't cover anymore anyway
-	
+
 	// Verify alt field is updated on keyup
 	alt.val('');
 	inp.val('06/04/200').datepicker('show');

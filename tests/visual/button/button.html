@@ -18,7 +18,7 @@
 	$(function() {
 		var buttons = $('#push button, #check').button();
 		var buttonSets = $('#radio0, #radio1, #radio2, #ops1, #format, #ops2, #mode, #inputs, #anchors').buttonset();
-		
+
 		buttons.add(buttonSets).click(function(event) {
 			var target = $(event.target);
 			if (target.closest('.ui-button:not(.ui-state-disabled)').length) {
@@ -28,7 +28,7 @@
 				window.console && console.log(this, arguments);
 			}
 		});
-		
+
 		$("#disable-widgets").toggle(function() {
 			buttons.button("disable");
 			buttonSets.buttonset("disable");

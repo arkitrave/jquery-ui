@@ -23,36 +23,36 @@ test('init', function() {
 
 test('init with hash', function() {
 	expect(5);
-	
+
 	//set a hash in the url
 	location.hash = '#fragment-2';
-	
+
 	//selection of tab with divs ordered differently than list
 	el = $('#tabs1').tabs();
-	
+
 	equals(el.tabs('option', 'active'), 1, 'second tab should be active');
-	
+
 	ok(!$('#tabs1 ul li:eq(0)').is('.ui-tabs-active.ui-state-active'), 'first tab should not be selected nor active');
 	ok($('#tabs1 div:eq(0)').is(':hidden'), 'first div for first tab should be hidden');
-	
+
 	ok($('#tabs1 ul li:eq(1)').is('.ui-tabs-active.ui-state-active'), 'second tab should be selected and active');
 	ok(!$('#tabs1 div:eq(1)').is(':hidden'), 'second div for second tab should not be hidden');
 });
 
 test('init mismatched order with hash', function() {
 	expect(5);
-	
+
 	//set a hash in the url
 	location.hash = '#tabs7-2';
-	
+
 	//selection of tab with divs ordered differently than list
 	el = $('#tabs7').tabs();
-	
+
 	equals(el.tabs('option', 'active'), 1, 'second tab should be active');
-	
+
 	ok(!$('#tabs7-list li:eq(0)').is('.ui-tabs-active.ui-state-active'), 'first tab should not be selected nor active');
 	ok($('#tabs7 div:eq(1)').is(':hidden'), 'second div for first tab should be hidden');
-	
+
 	ok($('#tabs7-list li:eq(1)').is('.ui-tabs-active.ui-state-active'), 'second tab should be selected and active');
 	ok(!$('#tabs7 div:eq(0)').is(':hidden'), 'first div for second tab should not be hidden');
 });
@@ -79,7 +79,7 @@ test('enable', function() {
 	el.tabs("enable", 1);
 	ok( $('li:eq(1)', el).is(':not(.ui-state-disabled)'), 'remove class from li');
 	same(el.tabs('option', 'disabled'), [ 0 ], 'update property');
-	
+
 	// enable all tabs
 	el.tabs({ disabled: [ 0, 1 ] });
 	el.tabs("enable");
@@ -110,7 +110,7 @@ test('disable', function() {
 	el.tabs('disable', 0);
 	ok( $('li:eq(0)', el).is('.ui-state-disabled'), 'add class to selected li');
 	same(el.tabs('option', 'disabled'), [ 0, 1 ], 'update disabled property');
-	
+
 	// disable all tabs
 	el.tabs('disable');
 	same( $('li.ui-state-disabled', el).length, 3, 'disable all');

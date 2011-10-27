@@ -56,7 +56,7 @@ test("content: callback string", function() {
 			}, 100)
 		}
 	}).tooltip("open");
-	
+
 });
 
 })(jQuery);

@@ -13,7 +13,7 @@
 (function( $, undefined ) {
 
 $.effects.effect.transfer = function( o ) {
-	
+
 	return this.queue( function() {
 		var elem = $( this ),
 			target = $( o.to ),

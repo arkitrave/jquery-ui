@@ -16,7 +16,7 @@ $.widget("ui.menubar", {
 		var items = this.items = this.element.children("button, a");
 		items.slice(1).attr("tabIndex", -1);
 		var o = this.options;
-				
+
 		this.element.addClass('ui-menubar ui-widget-header ui-helper-clearfix');
 		this._focusable(items);
 		this._hoverable(items);
@@ -28,7 +28,7 @@ $.widget("ui.menubar", {
 				}
 			}).hide().keydown(function(event) {
 				var menu = $(this);
-				if (menu.is(":hidden")) 
+				if (menu.is(":hidden"))
 					return;
 				event.stopPropagation();
 				switch (event.keyCode) {
@@ -48,7 +48,7 @@ $.widget("ui.menubar", {
 		items.each(function() {
 			var input = $(this),
 				   menu = input.next("ul");
-			
+
 			input.bind("click focus mouseenter", function(event) {
 				// ignore triggered focus event
 				if (event.type == "focus" && !event.originalEvent) {
@@ -84,16 +84,16 @@ $.widget("ui.menubar", {
 			})
 			.addClass("ui-button ui-widget ui-button-text-only ui-menubar-link")
 			.wrapInner("<span class='ui-button-text'></span>");
-			
+
 			if (o.menuIcon) {
 				input.addClass("ui-state-default").append("<span class='ui-button-icon-secondary ui-icon ui-icon-triangle-1-s'></span>");
 				input.removeClass("ui-button-text-only").addClass("ui-button-text-icon-secondary");
 			}
-   			
+
 			if (!o.buttons) {
 				input.addClass('ui-menubar-link').removeClass('ui-state-default');
-			};			
-			
+			};
+
 		});
 		self._bind(document, {
 			click: function(event) {
@@ -114,7 +114,7 @@ $.widget("ui.menubar", {
 			}
 		});
 	},
-	
+
 	_close: function() {
 		this.active.menu("closeAll").hide();
 		this.active.prev().removeClass("ui-state-active").removeAttr("tabIndex");
@@ -125,7 +125,7 @@ $.widget("ui.menubar", {
 			self.open = false;
 		}, 13);
 	},
-	
+
 	_open: function(event, menu) {
 		// on a single-button menubar, ignore reopening the same menu
 		if (this.active && this.active[0] == menu[0]) {
@@ -146,7 +146,7 @@ $.widget("ui.menubar", {
 			of: button
 		}).focus();
 	},
-	
+
 	_prev: function( event, button ) {
 		button.attr("tabIndex", -1);
 		var prev = button.prevAll( ".ui-button" ).eq( 0 );
@@ -156,7 +156,7 @@ $.widget("ui.menubar", {
 			this.element.children(".ui-button:last").removeAttr("tabIndex")[0].focus();
 		}
 	},
-	
+
 	_next: function( event, button ) {
 		button.attr("tabIndex", -1);
 		var next =  button.nextAll( ".ui-button" ).eq( 0 );
@@ -166,7 +166,7 @@ $.widget("ui.menubar", {
 			this.element.children(".ui-button:first").removeAttr("tabIndex")[0].focus();
 		}
 	},
-	
+
 	_left: function(event) {
 		var prev = this.active.prevAll( ".ui-menu" ).eq( 0 );
 		if (prev.length) {
@@ -175,7 +175,7 @@ $.widget("ui.menubar", {
 			this._open(event, this.element.children(".ui-menu:last"));
 		}
 	},
-	
+
 	_right: function(event) {
 		var next =  this.active.nextAll( ".ui-menu" ).eq( 0 );
 		if (next.length) {

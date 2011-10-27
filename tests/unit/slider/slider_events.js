@@ -2,7 +2,7 @@
  * slider_events.js
  */
 (function($) {
-	
+
 module( "slider: events" );
 
 //Specs from http://wiki.jqueryui.com/Slider#specs
@@ -11,7 +11,7 @@ module( "slider: events" );
 // or value method/option"
 test( "mouse based interaction", function() {
 	expect(4);
-	
+
 	var el = $( "<div></div>" )
 		.appendTo( "body" )
 		.slider({
@@ -35,7 +35,7 @@ test( "mouse based interaction", function() {
 });
 test( "keyboard based interaction", function() {
 	expect(3);
-	
+
 	// Test keyup at end of handle slide (keyboard)
 	var el = $( "<div></div>" )
 		.appendTo( "body" )
@@ -62,7 +62,7 @@ test( "keyboard based interaction", function() {
 });
 test( "programmatic event triggers", function() {
 	expect(6);
-	
+
 	// Test value method
 	var el = $( "<div></div>" )
 		.slider({

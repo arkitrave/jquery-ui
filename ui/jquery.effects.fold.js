@@ -28,27 +28,27 @@ $.effects.effect.fold = function( o ) {
 			duration = o.duration / 2,
 			wrapper, distance;
 
-		$.effects.save( el, props ); 
+		$.effects.save( el, props );
 		el.show();
 
 		// Create Wrapper
-		wrapper = $.effects.createWrapper( el ).css({ 
-			overflow: 'hidden' 
-		}); 
-		distance = widthFirst ? 
-			[ wrapper.width(), wrapper.height() ] : 
+		wrapper = $.effects.createWrapper( el ).css({
+			overflow: 'hidden'
+		});
+		distance = widthFirst ?
+			[ wrapper.width(), wrapper.height() ] :
 			[ wrapper.height(), wrapper.width() ];
 
-		if ( percent ) { 
+		if ( percent ) {
 			size = parseInt( percent[ 1 ], 10 ) / 100 * distance[ ( mode == 'hide') ? 0 : 1 ];
 		}
 		mode == 'show' && wrapper.css( horizFirst ? {
-				height: 0, 
+				height: 0,
 				width: size
 			} : {
-				height: size, 
+				height: size,
 				width: 0
-			}); 
+			});
 
 		// Animation
 		var animation1 = {}, animation2 = {};
@@ -60,9 +60,9 @@ $.effects.effect.fold = function( o ) {
 			.animate( animation1, duration, o.easing )
 			.animate( animation2, duration, o.easing, function() {
 				(mode == 'hide') && el.hide();
-				$.effects.restore( el, props ); 
-				$.effects.removeWrapper( el ); 
-				jQuery.isFunction(o.complete) && o.complete.apply( el[ 0 ], arguments ); 
+				$.effects.restore( el, props );
+				$.effects.removeWrapper( el );
+				jQuery.isFunction(o.complete) && o.complete.apply( el[ 0 ], arguments );
 				el.dequeue();
 			});
 

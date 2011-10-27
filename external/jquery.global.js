@@ -157,7 +157,7 @@ Globalization.parseFloat = function(value, radix, culture) {
 		culture = radix;
 		radix = 10;
 	}
-	
+
     culture = this.findClosestCulture( culture );
     var ret = NaN,
         nf = culture.numberFormat;

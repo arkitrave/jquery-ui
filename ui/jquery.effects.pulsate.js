@@ -32,14 +32,14 @@ $.effects.effect.pulsate = function( o ) {
 		}
 
 		for ( i = 0; i < times; i++ ) {
-			elem.animate({ 
-				opacity: animateTo 
+			elem.animate({
+				opacity: animateTo
 			}, duration, o.easing );
 			animateTo = ( animateTo + 1 ) % 2;
 		}
 
-		elem.animate({ 
-			opacity: animateTo 
+		elem.animate({
+			opacity: animateTo
 		}, duration, o.easing, function() {
 			if (animateTo == 0) {
 				elem.hide();

@@ -21,15 +21,15 @@
 			right: 10,
 			top: 10
 		}).appendTo(document.body).themeswitcher();
-		
+
 		$("td:has(.menubar)").clone().appendTo("tbody tr:not(:first)");
-		
+
 		$("#bar1, .menubar").menubar({
 			select: function(event, ui) {
 				$("<div/>").text("Selected: " + ui.item.text()).appendTo("#log");
 			}
 		});
-		
+
 		$(".menubar-icons").menubar({
 			menuIcon: true,
 			buttons: true,
@@ -50,11 +50,11 @@
 			margin: .4em 0 .2em;
 			line-height: 1.5;
 		}
-		
+
 		/* menubar styles */
 		.ui-menubar .ui-button { float: left; font-weight: normal; border-top-width: 0 !important; border-bottom-width: 0 !important; margin: 0; outline: none; }
 		.ui-menubar .ui-menubar-link { border-right: 1px dashed transparent; border-left: 1px dashed transparent; }
-		
+
 		table {
 			border-collapse: collapse;
 		}

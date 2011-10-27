@@ -331,7 +331,7 @@ $.widget( "ui.autocomplete", {
 			this._trigger( "close", event );
 		}
 	},
-	
+
 	_change: function( event ) {
 		if ( this.previous !== this._value() ) {
 			this._trigger( "change", event, { item: this.selectedItem } );

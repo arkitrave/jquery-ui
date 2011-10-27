@@ -187,7 +187,7 @@ function getElementStyles() {
 			}
 		}
 	}
-	
+
 	return newStyle;
 }
 
@@ -211,7 +211,7 @@ function filterStyles( styles ) {
 			delete styles[ name ];
 		}
 	}
-	
+
 	return styles;
 }
 
@@ -251,7 +251,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 
 		that.animate( styleDifference( originalStyle, newStyle ), duration, easing, function() {
 			$.each( classAnimationActions, function( i, action ) {
-				if ( value[ action ] ) { 
+				if ( value[ action ] ) {
 					that[ action + 'Class' ]( value[ action ] );
 				}
 			});
@@ -262,7 +262,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 			} else {
 				that.attr( 'style', originalStyleAttr );
 			}
-			if ( callback ) { 
+			if ( callback ) {
 				callback.apply( this, arguments );
 			}
 		});
@@ -279,14 +279,14 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 $.fn.extend({
 	_addClass: $.fn.addClass,
 	addClass: function( classNames, speed, easing, callback ) {
-		return speed ? 
+		return speed ?
 			$.effects.animateClass.apply( this, [{ add: classNames }, speed, easing, callback ]) :
 			this._addClass(classNames);
 	},
 
 	_removeClass: $.fn.removeClass,
 	removeClass: function( classNames, speed, easing, callback ) {
-		return speed ? 
+		return speed ?
 			$.effects.animateClass.apply( this, [{ remove: classNames }, speed, easing, callback ]) :
 			this._removeClass(classNames);
 	},
@@ -307,9 +307,9 @@ $.fn.extend({
 	},
 
 	switchClass: function( remove, add, speed, easing, callback) {
-		return $.effects.animateClass.apply( this, [{ 
-				add: add, 
-				remove: remove 
+		return $.effects.animateClass.apply( this, [{
+				add: add,
+				remove: remove
 			}, speed, easing, callback ]);
 	}
 });
@@ -343,14 +343,14 @@ $.extend( $.effects, {
 
 	setMode: function( el, mode ) {
 		if (mode == 'toggle') {
-			mode = el.is( ':hidden' ) ? 'show' : 'hide'; 
+			mode = el.is( ':hidden' ) ? 'show' : 'hide';
 		}
 		return mode;
 	},
 
 	// Translates a [top,left] array into a baseline value
 	// this should be a little more flexible in the future to handle a string & hash
-	getBaseline: function( origin, original ) { 
+	getBaseline: function( origin, original ) {
 		var y, x;
 		switch ( origin[ 0 ] ) {
 			case 'top': y = 0; break;
@@ -480,7 +480,7 @@ function _normalizeArguments( effect, options, speed, callback ) {
 	if ( options ) {
 		$.extend( effect, options );
 	}
-	
+
 	speed = speed || options.duration;
 	effect.duration = $.fx.off ? 0 : typeof speed == 'number'
 		? speed : speed in $.fx.speeds ? $.fx.speeds[ speed ] : $.fx.speeds._default;
@@ -495,7 +495,7 @@ function standardSpeed( speed ) {
 	if ( !speed || typeof speed === "number" || $.fx.speeds[ speed ] ) {
 		return true;
 	}
-	
+
 	// invalid strings - treat as "normal" speed
 	if ( typeof speed === "string" && !$.effects.effect[ speed ] ) {
 		// TODO: remove in 2.0 (#7115)
@@ -504,7 +504,7 @@ function standardSpeed( speed ) {
 		}
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -719,9 +719,9 @@ $.extend( $.easing, {
 			a = c;
 		if ( t == 0 ) return b;
 		if ( ( t /= d ) == 1 ) return b+c;
-		if ( a < Math.abs( c ) ) { 
-			a = c; 
-			s = p / 4; 
+		if ( a < Math.abs( c ) ) {
+			a = c;
+			s = p / 4;
 		} else {
 			s = p / ( 2 * Math.PI ) * Math.asin( c / a );
 		}
@@ -734,8 +734,8 @@ $.extend( $.easing, {
 		if ( t == 0 ) return b;
 		if ( ( t /= d ) == 1 ) return b+c;
 		if ( a < Math.abs( c ) ) {
-			a = c; 
-			s = p / 4; 
+			a = c;
+			s = p / 4;
 		} else {
 			s = p / ( 2 * Math.PI ) * Math.asin( c / a );
 		}
@@ -747,7 +747,7 @@ $.extend( $.easing, {
 			a = c;
 		if ( t == 0 ) return b;
 		if ( ( t /= d / 2 ) == 2 ) return b+c;
-		if ( a < Math.abs( c ) ) { 
+		if ( a < Math.abs( c ) ) {
 			a = c;
 			s = p / 4;
 		} else {

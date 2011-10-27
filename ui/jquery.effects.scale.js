@@ -18,9 +18,9 @@ $.effects.effect.puff = function( o ) {
 			mode = $.effects.setMode( elem, o.mode || 'hide' ),
 			percent = parseInt( o.percent, 10 ) || 150,
 			factor = percent / 100,
-			original = { 
-				height: elem.height(), 
-				width: elem.width() 
+			original = {
+				height: elem.height(),
+				width: elem.width()
 			};
 
 		$.extend(o, {
@@ -51,37 +51,37 @@ $.effects.effect.scale = function( o ) {
 			percent = parseInt( o.percent, 10 ) || ( parseInt( o.percent, 10 ) == 0 ? 0 : ( mode == 'hide' ? 0 : 100 ) ),
 			direction = o.direction || 'both',
 			origin = o.origin,
-			original = { 
-				height: el.height(), 
+			original = {
+				height: el.height(),
 				width: el.width()
 			},
 			factor = {
 				y: direction != 'horizontal' ? (percent / 100) : 1,
 				x: direction != 'vertical' ? (percent / 100) : 1
-			}; 
+			};
 
 		// We are going to pass this effect to the size effect:
 		options.effect = "size";
 
 		// Set default origin and restore for show/hide
-		if ( mode != 'effect' ) { 
+		if ( mode != 'effect' ) {
 			options.origin = origin || ['middle','center'];
 			options.restore = true;
 		}
 
-		options.from = o.from || ( mode == 'show' ? { height: 0, width: 0 } : original ); 
+		options.from = o.from || ( mode == 'show' ? { height: 0, width: 0 } : original );
 		options.to = {
-			height: original.height * factor.y, 
+			height: original.height * factor.y,
 			width: original.width * factor.x
-		}; 
+		};
 
 		if ( options.fade ) { // Fade option to support puff
 			if ( mode == 'show' ) {
-				options.from.opacity = 0; 
+				options.from.opacity = 0;
 				options.to.opacity = 1;
 			}
 			if ( mode == 'hide' ) {
-				options.from.opacity = 1; 
+				options.from.opacity = 1;
 				options.to.opacity = 0;
 			}
 		};
@@ -96,7 +96,7 @@ $.effects.effect.size = function( o ) {
 
 	return this.queue( function() {
 		// Create element
-		var el = $( this ), 
+		var el = $( this ),
 			props = [ 'position', 'top', 'bottom', 'left', 'right', 'width', 'height', 'overflow', 'opacity' ],
 
 			// Always restore
@@ -114,7 +114,7 @@ $.effects.effect.size = function( o ) {
 			scale = o.scale || 'both',
 			origin = o.origin,
 			original = {
-				height: el.height(), 
+				height: el.height(),
 				width: el.width()
 			},
 			baseline, factor;
@@ -134,11 +134,11 @@ $.effects.effect.size = function( o ) {
 		// Set scaling factor
 		factor = {
 			from: {
-				y: el.from.height / original.height, 
+				y: el.from.height / original.height,
 				x: el.from.width / original.width
 			},
 			to: {
-				y: el.to.height / original.height, 
+				y: el.to.height / original.height,
 				x: el.to.width / original.width
 			}
 		};
@@ -147,14 +147,14 @@ $.effects.effect.size = function( o ) {
 		if ( scale == 'box' || scale == 'both' ) {
 
 			// Vertical props scaling
-			if ( factor.from.y != factor.to.y ) { 
+			if ( factor.from.y != factor.to.y ) {
 				props = props.concat( vProps );
 				el.from = $.effects.setTransition( el, vProps, factor.from.y, el.from );
 				el.to = $.effects.setTransition( el, vProps, factor.to.y, el.to );
 			};
 
 			// Horizontal props scaling
-			if ( factor.from.x != factor.to.x ) { 
+			if ( factor.from.x != factor.to.x ) {
 				props = props.concat( hProps );
 				el.from = $.effects.setTransition( el, hProps, factor.from.x, el.from );
 				el.to = $.effects.setTransition( el, hProps, factor.to.x, el.to );
@@ -162,20 +162,20 @@ $.effects.effect.size = function( o ) {
 		};
 
 		// Scale the content
-		if ( scale == 'content' || scale == 'both' ) { 
+		if ( scale == 'content' || scale == 'both' ) {
 
 			// Vertical props scaling
-			if ( factor.from.y != factor.to.y ) { 
+			if ( factor.from.y != factor.to.y ) {
 				props = props.concat( cProps );
 				el.from = $.effects.setTransition( el, cProps, factor.from.y, el.from );
 				el.to = $.effects.setTransition( el, cProps, factor.to.y, el.to );
 			};
 		};
-		
-		$.effects.save( el, restore ? props : props1 ); 
-		el.show(); 
+
+		$.effects.save( el, restore ? props : props1 );
+		el.show();
 		$.effects.createWrapper( el );
-		el.css( 'overflow', 'hidden' ).css( el.from ); 
+		el.css( 'overflow', 'hidden' ).css( el.from );
 
 		// Animate
 		if ( scale == 'content' || scale == 'both' ) { // Scale the children
@@ -187,23 +187,23 @@ $.effects.effect.size = function( o ) {
 
 			el.find( "*[width]" ).each( function(){
 				var child = $( this ),
-					c_original = { 
-						height: child.height(), 
+					c_original = {
+						height: child.height(),
 						width: child.width()
 					};
 				if (restore) $.effects.save(child, props2);
-				
+
 				child.from = {
-					height: c_original.height * factor.from.y, 
+					height: c_original.height * factor.from.y,
 					width: c_original.width * factor.from.x
 				};
 				child.to = {
-					height: c_original.height * factor.to.y, 
+					height: c_original.height * factor.to.y,
 					width: c_original.width * factor.to.x
 				};
 
 				// Vertical props scaling
-				if ( factor.from.y != factor.to.y ) { 
+				if ( factor.from.y != factor.to.y ) {
 					child.from = $.effects.setTransition( child, vProps, factor.from.y, child.from );
 					child.to = $.effects.setTransition( child, vProps, factor.to.y, child.to );
 				};
@@ -219,16 +219,16 @@ $.effects.effect.size = function( o ) {
 				child.animate( child.to, o.duration, o.easing, function() {
 
 					// Restore children
-					if (restore) $.effects.restore( child, props2 ); 
+					if (restore) $.effects.restore( child, props2 );
 				});
 			});
 		};
 
 		// Animate
-		el.animate( el.to, { 
-			queue: false, 
-			duration: o.duration, 
-			easing: o.easing, 
+		el.animate( el.to, {
+			queue: false,
+			duration: o.duration,
+			easing: o.easing,
 			complete: function() {
 				if ( el.to.opacity === 0 ) {
 					el.css( 'opacity', el.from.opacity );
@@ -236,8 +236,8 @@ $.effects.effect.size = function( o ) {
 				if( mode == 'hide' ) {
 					el.hide();
 				}
-				$.effects.restore( el, restore ? props : props1 ); 
-				$.effects.removeWrapper( el ); 
+				$.effects.restore( el, restore ? props : props1 );
+				$.effects.removeWrapper( el );
 				$.isFunction( o.complete ) && o.complete.apply( this, arguments ); // Callback
 				el.dequeue();
 			}

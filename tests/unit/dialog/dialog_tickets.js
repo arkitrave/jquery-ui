@@ -12,7 +12,7 @@ test("#4826: setting resizable false toggles resizable on dialog", function() {
 	shouldnotresize("[default]");
 	for (var i=0; i<2; i++) {
 		el.dialog('close').dialog('open');
-		shouldnotresize('initialized with resizable false toggle ('+ (i+1) +')');		
+		shouldnotresize('initialized with resizable false toggle ('+ (i+1) +')');
 	}
 	el.remove();
 
@@ -20,10 +20,10 @@ test("#4826: setting resizable false toggles resizable on dialog", function() {
 	shouldresize("[default]");
 	for (var i=0; i<2; i++) {
 		el.dialog('close').dialog('option', 'resizable', false).dialog('open');
-		shouldnotresize('set option resizable false toggle ('+ (i+1) +')');		
+		shouldnotresize('set option resizable false toggle ('+ (i+1) +')');
 	}
 	el.remove();
-	
+
 });
 
 test("#5184: isOpen in dialogclose event is true", function() {

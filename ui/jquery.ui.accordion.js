@@ -238,7 +238,7 @@ $.widget( "ui.accordion", {
 				if ( position === "absolute" || position === "fixed" ) {
 					return;
 				}
-				maxHeight -= elem.outerHeight( true );	
+				maxHeight -= elem.outerHeight( true );
 			});
 			if ( overflow ) {
 				parent.css( "overflow", overflow );

@@ -45,7 +45,7 @@ test("buttons", function() {
 
 	ok(btn.parent().hasClass('ui-dialog-buttonset'), "buttons in container");
 	ok(el.parent().hasClass('ui-dialog-buttons'), "dialog wrapper adds class about having buttons");
-	
+
 	btn.trigger("click");
 
 	var newButtons = {
@@ -69,7 +69,7 @@ test("buttons", function() {
 		equals(btn.eq(i).text(), key, "text of button " + (i+1));
 		i += 1;
 	});
-	
+
 	el.dialog("option", "buttons", null);
 	btn = $("button", dlg());
 	equals(btn.length, 0, "all buttons have been removed");
@@ -112,9 +112,9 @@ test("closeOnEscape", function() {
 		.simulate('keypress', { keyCode: $.ui.keyCode.ESCAPE })
 		.simulate('keyup', { keyCode: $.ui.keyCode.ESCAPE });
 	ok(dlg().is(':visible') && !dlg().is(':hidden'), 'dialog is open after ESC');
-	
+
 	el.remove();
-	
+
 	el = $('<div></div>').dialog({ closeOnEscape: true });
 	ok(true, 'closeOnEscape: true');
 	ok(dlg().is(':visible') && !dlg().is(':hidden'), 'dialog is open before ESC');
