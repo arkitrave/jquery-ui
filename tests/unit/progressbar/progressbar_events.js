@@ -31,7 +31,7 @@ test( "complete", function() {
 	expect( 3 );
 	var changes = 0,
 		value;
-	
+
 	$( "#progressbar" ).progressbar({
 		change: function() {
 			changes++;
@@ -41,7 +41,7 @@ test( "complete", function() {
 			equal( changes, 2, "complete triggered after change" );
 		}
 	});
-	
+
 	value = 5;
 	$( "#progressbar" ).progressbar( "value", value );
 	value = 100;

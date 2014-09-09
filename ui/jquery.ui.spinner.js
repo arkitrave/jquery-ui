@@ -15,6 +15,7 @@
 
 $.widget('ui.spinner', {
 	defaultElement: "<input>",
+  widgetEventPrefix: "spin",
 	options: {
 		incremental: true,
 		max: null,
@@ -24,14 +25,14 @@ $.widget('ui.spinner', {
 		step: null,
 		value: null
 	},
-	
+
 	_create: function() {
 		this._draw();
 		this._markupOptions();
 		this._mousewheel();
 		this._aria();
 	},
-	
+
 	_markupOptions: function() {
 		var _this = this;
 		$.each({
@@ -46,7 +47,7 @@ $.widget('ui.spinner', {
 		});
 		this.value(this.options.value !== null ? this.options.value : this.element.val() || 0);
 	},
-	
+
 	_draw: function() {
 		var self = this,
 			options = self.options;
@@ -86,7 +87,7 @@ $.widget('ui.spinner', {
 				}
 				if (self.spinning) {
 					self._stop(event);
-					self._change(event);					
+					self._change(event);
 				}
 			})
 			.bind('focus.spinner', function() {
@@ -97,7 +98,7 @@ $.widget('ui.spinner', {
 				self.value(self.element.val());
 				if (!self.hovered) {
 					uiSpinner.removeClass('ui-state-active');
-				}		
+				}
 				self.focused = false;
 			});
 
@@ -121,7 +122,7 @@ $.widget('ui.spinner', {
 				}
 				if (self.spinning) {
 					self._stop(event);
-					self._change(event);					
+					self._change(event);
 				}
 			})
 			.bind("mouseenter", function() {
@@ -142,13 +143,13 @@ $.widget('ui.spinner', {
 					self._change(event);
 				}
 			});
-					
+
 		// disable spinner if element was already disabled
 		if (options.disabled) {
 			this.disable();
 		}
 	},
-	
+
 	_keydown: function(event) {
 		var o = this.options,
 			KEYS = $.ui.keyCode;
@@ -166,14 +167,14 @@ $.widget('ui.spinner', {
 		case KEYS.PAGE_DOWN:
 			this._repeat(null, -this.options.page, event);
 			return false;
-			
+
 		case KEYS.ENTER:
 			this.value(this.element.val());
 		}
-		
+
 		return true;
 	},
-	
+
 	_mousewheel: function() {
 		// need the delta normalization that mousewheel plugin provides
 		if (!$.fn.mousewheel) {
@@ -181,7 +182,7 @@ $.widget('ui.spinner', {
 		}
 		var self = this;
 		this.element.bind("mousewheel.spinner", function(event, delta) {
-			if (self.options.disabled) {
+			if (self.options.disabled || !delta) {
 				return;
 			}
 			if (!self.spinning && !self._start(event)) {
@@ -198,16 +199,16 @@ $.widget('ui.spinner', {
 			event.preventDefault();
 		});
 	},
-	
+
 	_uiSpinnerHtml: function() {
 		return '<span class="ui-spinner ui-state-default ui-widget ui-widget-content ui-corner-all"></span>';
 	},
-	
+
 	_buttonHtml: function() {
 		return '<a class="ui-spinner-button ui-spinner-up ui-corner-tr"><span class="ui-icon ui-icon-triangle-1-n">&#9650;</span></a>' +
 				'<a class="ui-spinner-button ui-spinner-down ui-corner-br"><span class="ui-icon ui-icon-triangle-1-s">&#9660;</span></a>';
 	},
-	
+
 	_start: function(event) {
 		if (!this.spinning && this._trigger('start', event) !== false) {
 			if (!this.counter) {
@@ -218,7 +219,7 @@ $.widget('ui.spinner', {
 		}
 		return false;
 	},
-	
+
 	_repeat: function(i, steps, event) {
 		var self = this;
 		i = i || 500;
@@ -227,45 +228,45 @@ $.widget('ui.spinner', {
 		this.timer = setTimeout(function() {
 			self._repeat(40, steps, event);
 		}, i);
-		
+
 		self._spin(steps * self.options.step, event);
 	},
-	
+
 	_spin: function(step, event) {
 		if (!this.counter) {
 			this.counter = 1;
 		}
-		
+
 		// TODO refactor, maybe figure out some non-linear math
 		var newVal = this.value() + step * (this.options.incremental &&
 			this.counter > 20
 				? this.counter > 100
 					? this.counter > 200
-						? 100 
+						? 100
 						: 10
 					: 2
 				: 1);
-		
+
 		if (this._trigger('spin', event, { value: newVal }) !== false) {
 			this.value(newVal);
-			this.counter++;			
+			this.counter++;
 		}
 	},
-	
+
 	_stop: function(event) {
 		this.counter = 0;
 		if (this.timer) {
 			window.clearTimeout(this.timer);
 		}
-		this.element[0].focus();
+		this.element.focus();
 		this.spinning = false;
 		this._trigger('stop', event);
 	},
-	
+
 	_change: function(event) {
 		this._trigger('change', event);
 	},
-	
+
 	_setOption: function(key, value) {
 		if (key == 'value') {
 			value = this._parse(value);
@@ -287,7 +288,7 @@ $.widget('ui.spinner', {
 		}
 		this._super( "_setOption", key, value );
 	},
-	
+
 	_setOptions: function( options ) {
 		this._super( "_setOptions", options );
 		if ( "value" in options ) {
@@ -295,14 +296,14 @@ $.widget('ui.spinner', {
 		}
 		this._aria();
 	},
-	
+
 	_aria: function() {
 		this.element
 			.attr('aria-valuemin', this.options.min)
 			.attr('aria-valuemax', this.options.max)
 			.attr('aria-valuenow', this.options.value);
 	},
-	
+
 	_parse: function(val) {
 		var input = val;
 		if (typeof val == 'string') {
@@ -310,12 +311,11 @@ $.widget('ui.spinner', {
 		}
 		return isNaN(val) ? null : val;
 	},
-	
+
 	_format: function(num) {
-		var num = this.options.value;
 		this.element.val( $.global && this.options.numberformat ? $.global.format(num, this.options.numberformat) : num );
 	},
-		
+
 	destroy: function() {
 		this.element
 			.removeClass('ui-spinner-input')
@@ -328,33 +328,35 @@ $.widget('ui.spinner', {
 		this._super( "destroy" );
 		this.uiSpinner.replaceWith(this.element);
 	},
-	
+
 	stepUp: function(steps) {
 		this._spin((steps || 1) * this.options.step);
 	},
-	
+
 	stepDown: function(steps) {
-		this._spin((steps || 1) * -this.options.step);	
+		this._spin((steps || 1) * -this.options.step);
 	},
-	
+
 	pageUp: function(pages) {
-		this.stepUp((pages || 1) * this.options.page);		
+		this.stepUp((pages || 1) * this.options.page);
 	},
-	
+
 	pageDown: function(pages) {
-		this.stepDown((pages || 1) * this.options.page);		
+		this.stepDown((pages || 1) * this.options.page);
 	},
-	
+
 	value: function(newVal) {
 		if (!arguments.length) {
 			return this._parse(this.element.val());
 		}
 		this.option('value', newVal);
 	},
-	
+
 	widget: function() {
 		return this.uiSpinner;
 	}
 });
+
+$.ui.spinner.version = "@VERSION";
 
 })(jQuery);

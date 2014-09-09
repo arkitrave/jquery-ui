@@ -64,7 +64,7 @@ test("dragStart", function() {
 test("drag", function() {
 	expect(9);
 	var hasDragged = false;
-	
+
 	el = $('<div></div>').dialog({
 		drag: function(ev, ui) {
 			if (!hasDragged) {
@@ -73,7 +73,7 @@ test("drag", function() {
 				equals(ev.type, 'dialogdrag', 'event type in callback');
 				ok(ui.position !== undefined, "ui.position in callback");
 				ok(ui.offset !== undefined, "ui.offset in callback");
-				
+
 				hasDragged = true;
 			}
 		}
@@ -150,7 +150,7 @@ test("resize", function() {
 				ok(ui.originalSize !== undefined, "ui.originalSize in callback");
 				ok(ui.position !== undefined, "ui.position in callback");
 				ok(ui.size !== undefined, "ui.size in callback");
-				
+
 				hasResized = true;
 			}
 		}

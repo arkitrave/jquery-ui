@@ -13,7 +13,7 @@ module("slider: options");
 
 test("max", function() {
 	el = $('<div></div>');
-	
+
 	options = {
 		max: 37,
 		min: 6,
@@ -31,7 +31,7 @@ test("max", function() {
 
 test("min", function() {
 	el = $('<div></div>');
-	
+
 	options = {
 		max: 37,
 		min: 6,

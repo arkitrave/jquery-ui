@@ -23,7 +23,7 @@ function isNotTabbable(selector, msg) {
 
 test("data", function() {
 	expect(15);
-	
+
 	var el;
 	function shouldHaveData(msg) {
 		ok(el.is(':data(test)'), msg);
@@ -31,56 +31,56 @@ test("data", function() {
 	function shouldNotHaveData(msg) {
 		ok(!el.is(':data(test)'), msg);
 	}
-	
+
 	el = $('<div/>');
 	shouldNotHaveData('data never set');
-	
+
 	el = $('<div/>').data('test', null);
 	shouldNotHaveData('data is null');
-	
+
 	el = $('<div/>').data('test', true);
 	shouldHaveData('data set to true');
-	
+
 	el = $('<div/>').data('test', false);
 	shouldNotHaveData('data set to false');
-	
+
 	el = $('<div/>').data('test', 0);
 	shouldNotHaveData('data set to 0');
-	
+
 	el = $('<div/>').data('test', 1);
 	shouldHaveData('data set to 1');
-	
+
 	el = $('<div/>').data('test', '');
 	shouldNotHaveData('data set to empty string');
-	
+
 	el = $('<div/>').data('test', 'foo');
 	shouldHaveData('data set to string');
-	
+
 	el = $('<div/>').data('test', []);
 	shouldHaveData('data set to empty array');
-	
+
 	el = $('<div/>').data('test', [1]);
 	shouldHaveData('data set to array');
-	
+
 	el = $('<div/>').data('test', {});
 	shouldHaveData('data set to empty object');
-	
+
 	el = $('<div/>').data('test', {foo: 'bar'});
 	shouldHaveData('data set to object');
-	
+
 	el = $('<div/>').data('test', new Date());
 	shouldHaveData('data set to date');
-	
+
 	el = $('<div/>').data('test', /test/);
 	shouldHaveData('data set to regexp');
-	
+
 	el = $('<div/>').data('test', function() {});
 	shouldHaveData('data set to function');
 });
 
 test("focusable - visible, enabled elements", function() {
 	expect(16);
-	
+
 	isFocusable('#visibleAncestor-inputTypeNone', 'input, no type');
 	isFocusable('#visibleAncestor-inputTypeText', 'input, type text');
 	isFocusable('#visibleAncestor-inputTypeCheckbox', 'input, type checkbox');
@@ -101,7 +101,7 @@ test("focusable - visible, enabled elements", function() {
 
 test("focusable - disabled elements", function() {
 	expect(9);
-	
+
 	isNotFocusable('#disabledElement-inputTypeNone', 'input, no type');
 	isNotFocusable('#disabledElement-inputTypeText', 'input, type text');
 	isNotFocusable('#disabledElement-inputTypeCheckbox', 'input, type checkbox');
@@ -115,23 +115,23 @@ test("focusable - disabled elements", function() {
 
 test("focusable - hidden styles", function() {
 	expect(8);
-	
+
 	isNotFocusable('#displayNoneAncestor-input', 'input, display: none parent');
 	isNotFocusable('#displayNoneAncestor-span', 'span with tabindex, display: none parent');
-	
+
 	isNotFocusable('#visibilityHiddenAncestor-input', 'input, visibility: hidden parent');
 	isNotFocusable('#visibilityHiddenAncestor-span', 'span with tabindex, visibility: hidden parent');
-	
+
 	isNotFocusable('#displayNone-input', 'input, display: none');
 	isNotFocusable('#visibilityHidden-input', 'input, visibility: hidden');
-	
+
 	isNotFocusable('#displayNone-span', 'span with tabindex, display: none');
 	isNotFocusable('#visibilityHidden-span', 'span with tabindex, visibility: hidden');
 });
 
 test("focusable - natively focusable with various tabindex", function() {
 	expect(4);
-	
+
 	isFocusable('#inputTabindex0', 'input, tabindex 0');
 	isFocusable('#inputTabindex10', 'input, tabindex 10');
 	isFocusable('#inputTabindex-1', 'input, tabindex -1');
@@ -140,7 +140,7 @@ test("focusable - natively focusable with various tabindex", function() {
 
 test("focusable - not natively focusable with various tabindex", function() {
 	expect(4);
-	
+
 	isFocusable('#spanTabindex0', 'span, tabindex 0');
 	isFocusable('#spanTabindex10', 'span, tabindex 10');
 	isFocusable('#spanTabindex-1', 'span, tabindex -1');
@@ -149,7 +149,7 @@ test("focusable - not natively focusable with various tabindex", function() {
 
 test("focusable - invalid tabindex", function() {
 	expect(4);
-	
+
 	isFocusable('#inputTabindexfoo', 'input, tabindex foo');
 	isFocusable('#inputTabindex3foo', 'input, tabindex 3foo');
 	isNotFocusable('#spanTabindexfoo', 'span tabindex foo');
@@ -166,7 +166,7 @@ test("focusable - area elements", function() {
 
 test("tabbable - visible, enabled elements", function() {
 	expect(16);
-	
+
 	isTabbable('#visibleAncestor-inputTypeNone', 'input, no type');
 	isTabbable('#visibleAncestor-inputTypeText', 'input, type text');
 	isTabbable('#visibleAncestor-inputTypeCheckbox', 'input, type checkbox');
@@ -187,7 +187,7 @@ test("tabbable - visible, enabled elements", function() {
 
 test("tabbable - disabled elements", function() {
 	expect(9);
-	
+
 	isNotTabbable('#disabledElement-inputTypeNone', 'input, no type');
 	isNotTabbable('#disabledElement-inputTypeText', 'input, type text');
 	isNotTabbable('#disabledElement-inputTypeCheckbox', 'input, type checkbox');
@@ -201,23 +201,23 @@ test("tabbable - disabled elements", function() {
 
 test("tabbable - hidden styles", function() {
 	expect(8);
-	
+
 	isNotTabbable('#displayNoneAncestor-input', 'input, display: none parent');
 	isNotTabbable('#displayNoneAncestor-span', 'span with tabindex, display: none parent');
-	
+
 	isNotTabbable('#visibilityHiddenAncestor-input', 'input, visibility: hidden parent');
 	isNotTabbable('#visibilityHiddenAncestor-span', 'span with tabindex, visibility: hidden parent');
-	
+
 	isNotTabbable('#displayNone-input', 'input, display: none');
 	isNotTabbable('#visibilityHidden-input', 'input, visibility: hidden');
-	
+
 	isNotTabbable('#displayNone-span', 'span with tabindex, display: none');
 	isNotTabbable('#visibilityHidden-span', 'span with tabindex, visibility: hidden');
 });
 
 test("tabbable -  natively tabbable with various tabindex", function() {
 	expect(4);
-	
+
 	isTabbable('#inputTabindex0', 'input, tabindex 0');
 	isTabbable('#inputTabindex10', 'input, tabindex 10');
 	isNotTabbable('#inputTabindex-1', 'input, tabindex -1');
@@ -226,7 +226,7 @@ test("tabbable -  natively tabbable with various tabindex", function() {
 
 test("tabbable -  not natively tabbable with various tabindex", function() {
 	expect(4);
-	
+
 	isTabbable('#spanTabindex0', 'span, tabindex 0');
 	isTabbable('#spanTabindex10', 'span, tabindex 10');
 	isNotTabbable('#spanTabindex-1', 'span, tabindex -1');
@@ -235,7 +235,7 @@ test("tabbable -  not natively tabbable with various tabindex", function() {
 
 test("tabbable - invalid tabindex", function() {
 	expect(4);
-	
+
 	isTabbable('#inputTabindexfoo', 'input, tabindex foo');
 	isTabbable('#inputTabindex3foo', 'input, tabindex 3foo');
 	isNotTabbable('#spanTabindexfoo', 'span tabindex foo');

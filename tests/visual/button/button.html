@@ -9,7 +9,7 @@
 		#toolbar { margin-top: 2em; padding:0.2em; }
 		#ops1, #ops2, #format, #mode { margin-right: 1em }
 	</style>
-	<script type="text/javascript" src="../../../jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="../../../jquery-1.5.1.js"></script>
 	<script type="text/javascript" src="../../../external/jquery.metadata.js"></script>
 	<script type="text/javascript" src="../../../ui/jquery.ui.core.js"></script>
 	<script type="text/javascript" src="../../../ui/jquery.ui.widget.js"></script>
@@ -18,7 +18,7 @@
 	$(function() {
 		var buttons = $('#push button, #check').button();
 		var buttonSets = $('#radio0, #radio1, #radio2, #ops1, #format, #ops2, #mode, #inputs, #anchors').buttonset();
-		
+
 		buttons.add(buttonSets).click(function(event) {
 			var target = $(event.target);
 			if (target.closest('.ui-button:not(.ui-state-disabled)').length) {
@@ -28,7 +28,7 @@
 				window.console && console.log(this, arguments);
 			}
 		});
-		
+
 		$("#disable-widgets").toggle(function() {
 			buttons.button("disable");
 			buttonSets.buttonset("disable");

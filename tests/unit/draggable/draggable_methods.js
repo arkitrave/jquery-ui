@@ -69,7 +69,7 @@ test("enable", function() {
 	el.draggable("option", "disabled", false);
 	equals(el.draggable("option", "disabled"), false, "disabled option setter");
 	shouldmove('.draggable("option", "disabled", false)');
-	
+
 	var expected = $('<div></div>').draggable(),
 		actual = expected.draggable('enable');
 	equals(actual, expected, 'enable is chainable');
@@ -90,7 +90,7 @@ test("disable", function() {
 	el.draggable("option", "disabled", true);
 	equals(el.draggable("option", "disabled"), true, "disabled option setter");
 	shouldnotmove('.draggable("option", "disabled", true)');
-	
+
 	var expected = $('<div></div>').draggable(),
 		actual = expected.draggable('disable');
 	equals(actual, expected, 'disable is chainable');

@@ -141,12 +141,12 @@ $.each( [ "Width", "Height" ], function( i, name ) {
 
 	function reduce( elem, size, border, margin ) {
 		$.each( side, function() {
-			size -= parseFloat( $.curCSS( elem, "padding" + this, true) ) || 0;
+			size -= parseFloat( $.curCSS( elem, "padding" + this, true ) ) || 0;
 			if ( border ) {
-				size -= parseFloat( $.curCSS( elem, "border" + this + "Width", true) ) || 0;
+				size -= parseFloat( $.curCSS( elem, "border" + this + "Width", true ) ) || 0;
 			}
 			if ( margin ) {
-				size -= parseFloat( $.curCSS( elem, "margin" + this, true) ) || 0;
+				size -= parseFloat( $.curCSS( elem, "margin" + this, true ) ) || 0;
 			}
 		});
 		return size;
@@ -254,7 +254,7 @@ $.extend( $.ui, {
 			if ( !set || !instance.element[ 0 ].parentNode ) {
 				return;
 			}
-	
+
 			for ( var i = 0; i < set.length; i++ ) {
 				if ( instance.options[ set[ i ][ 0 ] ] ) {
 					set[ i ][ 1 ].apply( instance.element, args );
@@ -262,24 +262,24 @@ $.extend( $.ui, {
 			}
 		}
 	},
-	
+
 	contains: $.contains,
-	
+
 	// only used by resizable
 	hasScroll: function( el, a ) {
-	
+
 		//If overflow is hidden, the element might have extra content, but the user wants to hide it
 		if ( $( el ).css( "overflow" ) === "hidden") {
 			return false;
 		}
-	
+
 		var scroll = ( a && a === "left" ) ? "scrollLeft" : "scrollTop",
 			has = false;
-	
+
 		if ( el[ scroll ] > 0 ) {
 			return true;
 		}
-	
+
 		// TODO: determine which cases actually cause this to happen
 		// if the element doesn't have the scroll set, see if it's possible to
 		// set the scroll
@@ -288,7 +288,7 @@ $.extend( $.ui, {
 		el[ scroll ] = 0;
 		return has;
 	},
-	
+
 	// these are odd functions, fix the API or move into individual plugins
 	isOverAxis: function( x, reference, size ) {
 		//Determines when x coordinate is over "b" element axis

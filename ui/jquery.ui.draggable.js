@@ -191,7 +191,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 			dropped = this.dropped;
 			this.dropped = false;
 		}
-		
+
 		//if the original element is removed, don't bother to continue
 		if(!this.element[0] || !this.element[0].parentNode)
 			return false;
@@ -211,17 +211,17 @@ $.widget("ui.draggable", $.ui.mouse, {
 
 		return false;
 	},
-	
+
 	cancel: function() {
-		
+
 		if(this.helper.is(".ui-draggable-dragging")) {
 			this._mouseUp({});
 		} else {
 			this._clear();
 		}
-		
+
 		return this;
-		
+
 	},
 
 	_getHandle: function(event) {
@@ -317,7 +317,9 @@ $.widget("ui.draggable", $.ui.mouse, {
 	_cacheMargins: function() {
 		this.margins = {
 			left: (parseInt(this.element.css("marginLeft"),10) || 0),
-			top: (parseInt(this.element.css("marginTop"),10) || 0)
+			top: (parseInt(this.element.css("marginTop"),10) || 0),
+			right: (parseInt(this.element.css("marginRight"),10) || 0),
+			bottom: (parseInt(this.element.css("marginBottom"),10) || 0)
 		};
 	},
 
@@ -345,10 +347,10 @@ $.widget("ui.draggable", $.ui.mouse, {
 			var over = ($(ce).css("overflow") != 'hidden');
 
 			this.containment = [
-				co.left + (parseInt($(ce).css("borderLeftWidth"),10) || 0) + (parseInt($(ce).css("paddingLeft"),10) || 0) - this.margins.left,
-				co.top + (parseInt($(ce).css("borderTopWidth"),10) || 0) + (parseInt($(ce).css("paddingTop"),10) || 0) - this.margins.top,
-				co.left+(over ? Math.max(ce.scrollWidth,ce.offsetWidth) : ce.offsetWidth) - (parseInt($(ce).css("borderLeftWidth"),10) || 0) - (parseInt($(ce).css("paddingRight"),10) || 0) - this.helperProportions.width - this.margins.left,
-				co.top+(over ? Math.max(ce.scrollHeight,ce.offsetHeight) : ce.offsetHeight) - (parseInt($(ce).css("borderTopWidth"),10) || 0) - (parseInt($(ce).css("paddingBottom"),10) || 0) - this.helperProportions.height - this.margins.top
+				co.left + (parseInt($(ce).css("borderLeftWidth"),10) || 0) + (parseInt($(ce).css("paddingLeft"),10) || 0),
+				co.top + (parseInt($(ce).css("borderTopWidth"),10) || 0) + (parseInt($(ce).css("paddingTop"),10) || 0),
+				co.left+(over ? Math.max(ce.scrollWidth,ce.offsetWidth) : ce.offsetWidth) - (parseInt($(ce).css("borderLeftWidth"),10) || 0) - (parseInt($(ce).css("paddingRight"),10) || 0) - this.helperProportions.width - this.margins.left - this.margins.right,
+				co.top+(over ? Math.max(ce.scrollHeight,ce.offsetHeight) : ce.offsetHeight) - (parseInt($(ce).css("borderTopWidth"),10) || 0) - (parseInt($(ce).css("paddingBottom"),10) || 0) - this.helperProportions.height - this.margins.top  - this.margins.bottom
 			];
 		} else if(o.containment.constructor == Array) {
 			this.containment = o.containment;
@@ -475,7 +477,7 @@ $.ui.plugin.add("draggable", "connectToSortable", {
 					instance: sortable,
 					shouldRevert: sortable.options.revert
 				});
-				sortable._refreshItems();	//Do a one-time refresh at start to refresh the containerCache
+				sortable.refreshPositions();	// Call the sortable's refreshPositions at drag start to refresh the containerCache since the sortable container cache is used in drag and needs to be up to date (this will ensure it's initialised as well as being kept in step with any changes that might have happened on the page).
 				sortable._trigger("activate", event, uiSortable);
 			}
 		});
@@ -529,12 +531,12 @@ $.ui.plugin.add("draggable", "connectToSortable", {
 		};
 
 		$.each(inst.sortables, function(i) {
-			
+
 			//Copy over some variables to allow calling the sortable's native _intersectsWith
 			this.instance.positionAbs = inst.positionAbs;
 			this.instance.helperProportions = inst.helperProportions;
 			this.instance.offset.click = inst.offset.click;
-			
+
 			if(this.instance._intersectsWith(this.instance.containerCache)) {
 
 				//If it intersects, we use a little isOver variable and set it once, so our move-in stuff gets fired only once
@@ -577,13 +579,13 @@ $.ui.plugin.add("draggable", "connectToSortable", {
 
 					this.instance.isOver = 0;
 					this.instance.cancelHelperRemoval = true;
-					
+
 					//Prevent reverting on this forced stop
 					this.instance.options.revert = false;
-					
+
 					// The out event needs to be triggered independently
 					this.instance._trigger('out', event, this.instance._uiHash(this.instance));
-					
+
 					this.instance._mouseStop(event, true);
 					this.instance.options.helper = this.instance.options._helper;
 
@@ -771,7 +773,7 @@ $.ui.plugin.add("draggable", "stack", {
 			return (parseInt($(a).css("zIndex"),10) || 0) - (parseInt($(b).css("zIndex"),10) || 0);
 		});
 		if (!group.length) { return; }
-		
+
 		var min = parseInt(group[0].style.zIndex) || 0;
 		$(group).each(function(i) {
 			this.style.zIndex = min + i;

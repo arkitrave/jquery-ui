@@ -39,7 +39,7 @@ test("destroy", function() {
 
 	$("<div></div>").droppable().droppable("destroy").droppable("foo");
 	ok(true, 'arbitrary method called after destroy');
-	
+
 	var expected = $('<div></div>').droppable(),
 		actual = expected.droppable('destroy');
 	equals(actual, expected, 'destroy is chainable');
@@ -58,7 +58,7 @@ test("enable", function() {
 	el.droppable("option", "disabled", false);
 	equals(el.droppable("option", "disabled"), false, "disabled option setter");
 	shouldBeDroppable();
-	
+
 	var expected = $('<div></div>').droppable(),
 		actual = expected.droppable('enable');
 	equals(actual, expected, 'enable is chainable');
@@ -77,7 +77,7 @@ test("disable", function() {
 	el.droppable("option", "disabled", true);
 	equals(el.droppable("option", "disabled"), true, "disabled option setter");
 	shouldNotBeDroppable();
-	
+
 	var expected = $('<div></div>').droppable(),
 		actual = expected.droppable('disable');
 	equals(actual, expected, 'disable is chainable');

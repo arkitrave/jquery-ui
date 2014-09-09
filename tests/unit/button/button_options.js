@@ -10,7 +10,7 @@ test("disabled, explicity value", function() {
 	same(false, $("#radio01").button("option", "disabled"),
 		"disabled option set to false");
 	same(false, $("#radio01").attr("disabled"), "element is disabled");
-	
+
 	$("#radio02").button({ disabled: true });
 	same(true, $("#radio02").button("option", "disabled"),
 		"disabled option set to true");
@@ -22,7 +22,7 @@ test("disabled, null", function() {
 	same(false, $("#radio01").button("option", "disabled"),
 		"disabled option set to false");
 	same(false, $("#radio01").attr("disabled"), "element is disabled");
-	
+
 	$("#radio02").attr("disabled", "disabled").button({ disabled: null });
 	same(true, $("#radio02").button("option", "disabled"),
 		"disabled option set to true");
@@ -34,7 +34,7 @@ test("text false without icon", function() {
 		text: false
 	});
 	ok( $("#button").is(".ui-button-text-only:not(.ui-button-icon-only)") );
-	
+
 	$("#button").button("destroy");
 });
 
@@ -46,14 +46,14 @@ test("text false with icon", function() {
 		}
 	});
 	ok( $("#button").is(".ui-button-icon-only:not(.ui-button-text):has(span.ui-icon.iconclass)") );
-	
+
 	$("#button").button("destroy");
 });
 
 test("label, default", function() {
 	$("#button").button();
 	same( $("#button").text(), "Label" );
-	
+
 	$("#button").button("destroy");
 });
 
@@ -62,7 +62,7 @@ test("label", function() {
 		label: "xxx"
 	});
 	same( $("#button").text(), "xxx" );
-	
+
 	$("#button").button("destroy");
 });
 
@@ -86,7 +86,7 @@ test("icons", function() {
 		}
 	});
 	ok( $("#button").is(":has(span.ui-icon.ui-button-icon-primary.iconclass):has(span.ui-icon.ui-button-icon-secondary.iconclass2)") );
-	
+
 	$("#button").button("destroy");
 });
 

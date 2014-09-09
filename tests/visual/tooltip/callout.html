@@ -4,7 +4,7 @@
 	<title>Tooltip Visual Test: Default</title>
 	<link rel="stylesheet" href="../visual.css" type="text/css" />
 	<link rel="stylesheet" href="../../../themes/base/jquery.ui.all.css" type="text/css">
-	<script type="text/javascript" src="../../../jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="../../../jquery-1.5.1.js"></script>
 	<script type="text/javascript" src="../../../ui/jquery.ui.core.js"></script>
 	<script type="text/javascript" src="../../../ui/jquery.ui.widget.js"></script>
 	<script type="text/javascript" src="../../../ui/jquery.ui.position.js"></script>
@@ -36,7 +36,7 @@
 			if (dy < ty && d(dx, tx) < d(dy, ty)) {
 				this.element.addClass("ui-tooltip-arrow-bc");
 			}
-			
+
 			// fix inner borders
 			$('.ui-tooltip-pointer-inner', this.element).each(function(){
 				var pt = $(this).parent().parent();
@@ -54,16 +54,16 @@
 			});
 		}
 	});
-		
+
 	$(function() {
 		$.ui.tooltip.prototype.options.show = function(event, ui) {
 			$(this).tooltip("widget").callout("pointAt", ui.target);
 		}
-		
+
 		function enable() {
 			// default
 			$("#context1, form input").tooltip();
-			
+
 			// custom class, replaces ui-widget-content
 			$("#context2").tooltip({
 				tooltipClass: "ui-widget-header"
@@ -71,7 +71,7 @@
 			$("#right1").tooltip({
 				tooltipClass: "ui-state-error"
 			});
-			
+
 			// synchronous content
 			$("#see-footnote").tooltip({
 				content: function() {
@@ -84,7 +84,7 @@
 					$.get("ajaxcontent.html", response);
 				}
 			});
-			
+
 			// custom position
 			$("#right2").tooltip({
 				position: {
@@ -94,11 +94,11 @@
 				},
 				tooltipClass: "ui-state-highlight"
 			});
-			
+
 			$(".ui-tooltip").callout();
 		}
 		enable();
-		
+
 		$("#disable").toggle(function() {
 			$("*").tooltip("disable");
 		}, function() {
@@ -111,7 +111,7 @@
 		});
 	});
 	</script>
-	
+
 	<style>
 		.ui-tooltip .ui-tooltip-pointer,.ui-tooltip .ui-tooltip-pointer-inner { position:absolute; width:0; height:0; background:none; }
 
@@ -124,7 +124,7 @@
 		.ui-tooltip-arrow-tr .ui-tooltip-pointer-inner { border-left:12px dotted transparent; border-right:0; right:2px; }
 		.ui-tooltip-arrow-tc .ui-tooltip-pointer-inner { border-left:8px dotted transparent; border-right:8px dotted transparent; left:-8px; }
 		.ui-tooltip-arrow-tl .ui-tooltip-pointer-inner { border-left:0; border-right:12px dotted transparent; left:2px; }
-		
+
 		/*right*/
 		.ui-tooltip-arrow-rb .ui-tooltip-pointer,.ui-tooltip-arrow-rc .ui-tooltip-pointer,.ui-tooltip-arrow-rt .ui-tooltip-pointer { right:-14px; border-right:0; border-left-width:14px; }
 		.ui-tooltip-arrow-rb .ui-tooltip-pointer { border-bottom:0; border-top:18px dotted transparent; bottom:10px; }
@@ -134,7 +134,7 @@
 		.ui-tooltip-arrow-rb .ui-tooltip-pointer-inner { border-bottom:0; border-top:12px dotted transparent; bottom:2px; }
 		.ui-tooltip-arrow-rc .ui-tooltip-pointer-inner { border-bottom:8px dotted transparent; border-top:8px dotted transparent; bottom:-8px; }
 		.ui-tooltip-arrow-rt .ui-tooltip-pointer-inner { border-bottom:12px dotted transparent; border-top:0; top:2px; }
-		
+
 		/*bottom*/
 		.ui-tooltip-arrow-br .ui-tooltip-pointer,.ui-tooltip-arrow-bc .ui-tooltip-pointer,.ui-tooltip-arrow-bl .ui-tooltip-pointer { bottom:-14px; border-bottom:0; border-top-width:14px; }
 		.ui-tooltip-arrow-br .ui-tooltip-pointer { border-left:18px dotted transparent; border-right:0; right:10px; }
@@ -144,7 +144,7 @@
 		.ui-tooltip-arrow-br .ui-tooltip-pointer-inner { border-left:12px dotted transparent; border-right:0; right:2px; }
 		.ui-tooltip-arrow-bc .ui-tooltip-pointer-inner { border-left:8px dotted transparent; border-right:8px dotted transparent; left:-8px; }
 		.ui-tooltip-arrow-bl .ui-tooltip-pointer-inner { border-left:0; border-right:12px dotted transparent; left:2px; }
-		
+
 		/*left*/
 		.ui-tooltip-arrow-lb .ui-tooltip-pointer,.ui-tooltip-arrow-lc .ui-tooltip-pointer,.ui-tooltip-arrow-lt .ui-tooltip-pointer { left:-14px; border-left:0; border-right-width:14px; }
 		.ui-tooltip-arrow-lb .ui-tooltip-pointer { border-bottom:0; border-top:18px dotted transparent; bottom:10px; }
@@ -170,19 +170,19 @@
 	<div id="right1" style="position: absolute; right: 1em" title="right aligned element">
 		collision detection should kick in around here
 	</div>
-	
+
 	<div style="margin: 2em 0">
 		<a id="see-footnote" href="#footnote">I'm a link to a footnote.</a>
 	</div>
-	
+
 	<div id="right2" style="position: absolute; right: 1em" title="right aligned element with custom position">
 		right aligned with custom position
 	</div>
-	
+
 	<div id="ajax" style="width: 100px;" class="ui-widget-content" title="never be seen">
 		gets its content via ajax
 	</div>
-	
+
 	<div id="context2" class="ui-widget ui-widget-content">
 		<span title="something" style="border:1px solid blue">span</span>
 		<div title="something else" style="border:1px solid red;">
@@ -190,7 +190,7 @@
 			<span title="something more" style="border:1px solid green;">nested span</span>
 		</div>
 	</div>
-	
+
 	<form style="margin: 2em 0;">
 		<div>
 			<label for="first">First Name:</label>
@@ -201,9 +201,9 @@
 			<input id="last" title="Your last name is optional" />
 		</div>
 	</form>
-	
+
 	<div id="footnote">This is <strong>the</strong> footnote, including other elements</div>
-	
+
 	<button id="disable">Toggle disabled</button>
 	<button id="toggle">Toggle widget</button>
 </div>

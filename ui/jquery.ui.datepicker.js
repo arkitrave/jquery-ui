@@ -119,7 +119,7 @@ $.extend(Datepicker.prototype, {
 		if (this.debug)
 			console.log.apply('', arguments);
 	},
-	
+
 	// TODO rename to "widget" when switching to widget factory
 	_widgetDatepicker: function() {
 		return this.dpDiv;
@@ -444,7 +444,14 @@ $.extend(Datepicker.prototype, {
 				this._hideDatepicker();
 			}
 			var date = this._getDateDatepicker(target, true);
+			var minDate = this._getMinMaxDate(inst, 'min');
+			var maxDate = this._getMinMaxDate(inst, 'max');
 			extendRemove(inst.settings, settings);
+			// reformat the old minDate/maxDate values if dateFormat changes and a new minDate/maxDate isn't provided
+			if (minDate !== null && settings['dateFormat'] !== undefined && settings['minDate'] === undefined)
+				inst.settings.minDate = this._formatDate(inst, minDate);
+			if (maxDate !== null && settings['dateFormat'] !== undefined && settings['maxDate'] === undefined)
+				inst.settings.maxDate = this._formatDate(inst, maxDate);
 			this._attachments($(target), inst);
 			this._autoSize(inst);
 			this._setDateDatepicker(target, date);
@@ -500,7 +507,7 @@ $.extend(Datepicker.prototype, {
 				case 9: $.datepicker._hideDatepicker();
 						handled = false;
 						break; // hide on tab out
-				case 13: var sel = $('td.' + $.datepicker._dayOverClass + ':not(.' + 
+				case 13: var sel = $('td.' + $.datepicker._dayOverClass + ':not(.' +
 									$.datepicker._currentClass + ')', inst.dpDiv);
 						if (sel[0])
 							$.datepicker._selectDay(event.target, inst.selectedMonth, inst.selectedYear, sel[0]);
@@ -649,7 +656,9 @@ $.extend(Datepicker.prototype, {
 				}
 			};
 			inst.dpDiv.zIndex($(input).zIndex()+1);
-			if ($.effects && $.effects[showAnim])
+
+			// DEPRECATED: after BC for 1.8.x $.effects[ showAnim ] is not needed
+			if ( $.effects && ( $.effects.effect[ showAnim ] || $.effects[ showAnim ] ) )
 				inst.dpDiv.show(showAnim, $.datepicker._get(inst, 'showOptions'), duration, postProcess);
 			else
 				inst.dpDiv[showAnim || 'show']((showAnim ? duration : null), postProcess);
@@ -700,9 +709,11 @@ $.extend(Datepicker.prototype, {
 		inst.dpDiv[(this._get(inst, 'isRTL') ? 'add' : 'remove') +
 			'Class']('ui-datepicker-rtl');
 		if (inst == $.datepicker._curInst && $.datepicker._datepickerShowing && inst.input &&
-				inst.input.is(':visible') && !inst.input.is(':disabled'))
+				// #6694 - don't focus the input if it's already focused
+				// this breaks the change event in IE
+				inst.input.is(':visible') && !inst.input.is(':disabled') && inst.input[0] != document.activeElement)
 			inst.input.focus();
-		// deffered render of the years select (to avoid flashes on Firefox) 
+		// deffered render of the years select (to avoid flashes on Firefox)
 		if( inst.yearshtml ){
 			var origyearshtml = inst.yearshtml;
 			setTimeout(function(){
@@ -752,7 +763,7 @@ $.extend(Datepicker.prototype, {
 	_findPos: function(obj) {
 		var inst = this._getInst(obj);
 		var isRTL = this._get(inst, 'isRTL');
-        while (obj && (obj.type == 'hidden' || obj.nodeType != 1)) {
+        while (obj && (obj.type == 'hidden' || obj.nodeType != 1 || $.expr.filters.hidden(obj))) {
             obj = obj[isRTL ? 'previousSibling' : 'nextSibling'];
         }
         var position = $(obj).offset();
@@ -772,7 +783,9 @@ $.extend(Datepicker.prototype, {
 				$.datepicker._tidyDialog(inst);
 				this._curInst = null;
 			};
-			if ($.effects && $.effects[showAnim])
+
+			// DEPRECATED: after BC for 1.8.x $.effects[ showAnim ] is not needed
+			if ( $.effects && ( $.effects.effect[ showAnim ] || $.effects[ showAnim ] ) )
 				inst.dpDiv.hide(showAnim, $.datepicker._get(inst, 'showOptions'), duration, postProcess);
 			else
 				inst.dpDiv[(showAnim == 'slideDown' ? 'slideUp' :
@@ -1080,7 +1093,7 @@ $.extend(Datepicker.prototype, {
 		}
 		var date = this._daylightSavingAdjust(new Date(year, month - 1, day));
 		if (date.getFullYear() != year || date.getMonth() + 1 != month || date.getDate() != day)
-			throw 'Invalid date'; // E.g. 31/02/*
+			throw 'Invalid date'; // E.g. 31/02/00
 		return date;
 	},
 
@@ -1524,7 +1537,7 @@ $.extend(Datepicker.prototype, {
 					drawMonth = 0;
 					drawYear++;
 				}
-				calender += '</tbody></table>' + (isMultiMonth ? '</div>' + 
+				calender += '</tbody></table>' + (isMultiMonth ? '</div>' +
 							((numMonths[0] > 0 && col == numMonths[1]-1) ? '<div class="ui-datepicker-row-break"></div>' : '') : '');
 				group += calender;
 			}
@@ -1593,14 +1606,8 @@ $.extend(Datepicker.prototype, {
 					'>' + year + '</option>';
 			}
 			inst.yearshtml += '</select>';
-			//when showing there is no need for later update
-			if( ! $.browser.mozilla ){
-				html += inst.yearshtml;
-				inst.yearshtml = null;
-			} else {
-				// will be replaced later with inst.yearshtml
-				html += '<select class="ui-datepicker-year"><option value="' + drawYear + '" selected="selected">' + drawYear + '</option></select>';
-			}
+			html += inst.yearshtml;
+			inst.yearshtml = null;
 		}
 		html += this._get(inst, 'yearSuffix');
 		if (showMonthAfterYear)
@@ -1654,7 +1661,7 @@ $.extend(Datepicker.prototype, {
 
 	/* Find the number of days in a given month. */
 	_getDaysInMonth: function(year, month) {
-		return 32 - new Date(year, month, 32).getDate();
+		return 32 - this._daylightSavingAdjust(new Date(year, month, 32)).getDate();
 	},
 
 	/* Find the day of the week of the first of a month. */
@@ -1724,6 +1731,11 @@ function isArray(a) {
                     Object - settings for attaching new datepicker functionality
    @return  jQuery object */
 $.fn.datepicker = function(options){
+
+	/* Verify an empty collection wasn't passed - Fixes #6976 */
+	if ( !this.length ) {
+		return this;
+	}
 
 	/* Initialise the date picker. */
 	if (!$.datepicker.initialized) {

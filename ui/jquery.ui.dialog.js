@@ -97,7 +97,7 @@ $.widget("ui.dialog", {
 				// TODO: move to stylesheet
 				.css( "outline", 0 )
 				.keydown(function( event ) {
-					if ( options.closeOnEscape && event.keyCode &&
+					if ( options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
 							event.keyCode === $.ui.keyCode.ESCAPE ) {
 						self.close( event );
 						event.preventDefault();
@@ -170,7 +170,7 @@ $.widget("ui.dialog", {
 
 	_destroy: function() {
 		var self = this;
-		
+
 		if ( self.overlay ) {
 			self.overlay.destroy();
 		}
@@ -193,7 +193,7 @@ $.widget("ui.dialog", {
 	close: function( event ) {
 		var self = this,
 			maxZ, thisZ;
-		
+
 		if ( false === self._trigger( "beforeClose", event ) ) {
 			return;
 		}
@@ -354,7 +354,10 @@ $.widget("ui.dialog", {
 					button.button();
 				}
 			});
+			self.uiDialog.addClass( "ui-dialog-buttons" );
 			uiDialogButtonPane.appendTo( self.uiDialog );
+		} else {
+			self.uiDialog.removeClass( "ui-dialog-buttons" );
 		}
 	},
 
@@ -486,7 +489,7 @@ $.widget("ui.dialog", {
 					at: myAt.join( " " ),
 					offset: offset.join( " " )
 				};
-			} 
+			}
 
 			position = $.extend( {}, $.ui.dialog.prototype.options.position, position );
 		} else {
@@ -511,7 +514,7 @@ $.widget("ui.dialog", {
 
 		$.each( options, function( key, value ) {
 			self._setOption( key, value );
-			
+
 			if ( key in sizeRelatedOptions ) {
 				resize = true;
 			}
@@ -557,7 +560,7 @@ $.widget("ui.dialog", {
 				if ( isDraggable && !value ) {
 					uiDialog.draggable( "destroy" );
 				}
-				
+
 				if ( !isDraggable && value ) {
 					self._makeDraggable();
 				}
@@ -620,7 +623,7 @@ $.widget("ui.dialog", {
 			})
 			.height();
 		minContentHeight = Math.max( 0, options.minHeight - nonContentHeight );
-		
+
 		if ( options.height === "auto" ) {
 			// only needed for IE6 support
 			if ( $.support.minHeight ) {
@@ -697,9 +700,9 @@ $.extend( $.ui.dialog.overlay, {
 
 			// allow closing by pressing the escape key
 			$( document ).bind( "keydown.dialog-overlay", function( event ) {
-				if ( dialog.options.closeOnEscape && event.keyCode &&
+				if ( dialog.options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
 					event.keyCode === $.ui.keyCode.ESCAPE ) {
-					
+
 					dialog.close( event );
 					event.preventDefault();
 				}

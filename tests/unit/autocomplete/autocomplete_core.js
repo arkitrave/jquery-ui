@@ -45,12 +45,12 @@ test( "prevent form submit on enter when menu is active", function() {
 	var ac = $( "#autocomplete" ).autocomplete({
 		source: [ "java", "javascript" ]
 	}).val( "ja" ).autocomplete( "search" );
-	
+
 	event = $.Event( "keydown" );
 	event.keyCode = $.ui.keyCode.DOWN;
 	ac.trigger( event );
-	same( $( ".ui-menu-item:has(.ui-state-hover)" ).length, 1, "menu item is active" );
-	
+	same( $( ".ui-menu-item:has(.ui-state-focus)" ).length, 1, "menu item is active" );
+
 	event = $.Event( "keydown" );
 	event.keyCode = $.ui.keyCode.ENTER;
 	ac.trigger( event );
@@ -60,9 +60,10 @@ test( "prevent form submit on enter when menu is active", function() {
 test( "allow form submit on enter when menu is not active", function() {
 	var event;
 	var ac = $( "#autocomplete" ).autocomplete({
+		autoFocus: false,
 		source: [ "java", "javascript" ]
 	}).val( "ja" ).autocomplete( "search" );
-	
+
 	event = $.Event( "keydown" );
 	event.keyCode = $.ui.keyCode.ENTER;
 	ac.trigger( event );
